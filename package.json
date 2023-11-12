@@ -18,6 +18,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "start-mobile" : "react-scripts start --host 100.82.115.224",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
