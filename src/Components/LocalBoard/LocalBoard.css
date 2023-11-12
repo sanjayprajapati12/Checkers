@@ -1,0 +1,286 @@
+body {
+    /* display: flex; */
+    /* margin-top: 10px; */
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url("http://localhost:3000/cool-background_2.png");
+}
+  
+  
+  .mycontainer {
+    width:460px;
+    margin: 30px auto 0 auto;
+  }
+  
+  .myrow {
+    height:50px;
+    margin-bottom:5px;
+    &:nth-child(odd) {
+      .mycell:nth-child(odd) {
+        /* background-color:#ddd; */
+        background-color:transparent;
+      }
+      .mycell:nth-child(even) {
+        background-color:transparent;
+        /* background-color : white; */
+      }
+    }
+    &:nth-child(even) {
+      .mycell:nth-child(even) {
+        /* background-color:#ddd; */
+        background-color:transparent;
+      }
+      .mycell:nth-child(odd) {
+        background-color:transparent;
+        /* background-color : white; */
+      }
+    }
+  }
+  
+  .mycell {
+    height:50px;
+    width:50px;
+    display:inline-block;
+    border:1px solid #060000;
+    margin-right:5px;
+    .gamePiece {
+        width:40px;
+        height:40px;
+        margin:5px 0 0 5px;
+        border-radius:40px;
+        cursor:pointer;
+        position:relative;
+      &:after {
+        content: ' ';
+        position: absolute;
+        right: 0;
+        top: -5px;
+        height: 38px;
+        width: 38px;
+        border-radius: 40px;
+        pointer-events:none;
+      }
+    }
+    &.mycell-b {
+      .gamePiece {
+        /* background-color:#444; */
+        background-color:#3b3b3b;
+      }
+      &.k {
+        .gamePiece {
+          &:after {
+            /* background-color:#444; */
+            background-color:#3b3b3b;
+            border:1px solid white;
+          }
+        }
+      }
+    }
+    &.mycell-r {
+      .gamePiece {
+        /* background-color:#e26b6b; */
+        background-color:#e75656;
+      }
+      &.k {
+        .gamePiece {
+          &:after {
+            /* background-color:#e26b6b; */
+            background-color:#e75656;
+            border:1px solid white;
+          }
+        }
+      }
+    }
+    &.mycell-ab, &.mycell-ar {
+      .gamePiece {
+        background-color: #6a6aff;
+        box-shadow: 0px 0px 24px #2983f3;
+      }
+      &.k {
+        .gamePiece {
+          &:after {
+            background-color: #6a6aff;   
+            border:1px solid white;   
+          }
+        }
+      }
+    }
+    &.mycell-h {
+      background-color:#6a6aff!important;
+    }
+    &.m {
+      .gamePiece {
+        background-color:green;
+      }
+    }
+  }
+  
+  .board.r .mycell-b .gamePiece {
+    opacity:0.6;
+  }
+  .board.b .mycell-r .gamePiece {
+    opacity:0.6;
+  }
+  
+  .board {
+    float:left;
+    transition-duration: 0.8s;
+    transition-property: transform;
+  }
+  
+  .board.b.local {
+     transform: rotate(180deg);
+      -webkit-transform: rotate(180deg);
+  }
+  
+  .board-btn {
+    display:block;
+    /* background-color:#ddd; */
+    /* background-color:rgb(249,223,72); */
+    background-color:rgb(52,67,77);
+    
+    /* background-color:transparent; */
+    border:none;
+    border-radius: 20px;
+    color:white;
+    padding:20px;
+    font-size:20px;
+    margin-top:10px;
+    cursor:pointer;
+    width:109px;
+    margin-right:5px;
+    transition: all 0.3s;
+    &:hover {
+      /* background-color: rgb(25,213,208); */
+      background-color: #4F4036;
+      /* text-decoration: underline; */
+    }
+    float:left;
+  }
+  
+  .clear {
+    clear:both;
+    float:none;
+  }
+  
+  .mypop {
+    position: absolute;
+    color:#444;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255,255,255,0.7);
+    .internal {
+      position:relative;
+      width: 400px;
+      margin: 0 auto;
+      background-color: white;
+      /* background-color:transparent; */
+      border: 1px solid #ccc;
+      min-height: 300px;
+      margin-top: 50px;
+      padding:50px;
+      .close {
+        padding:0 5px;
+        position:absolute;
+        right:0;
+        width:auto;
+        top:0;
+      }
+    }
+  }
+  
+  .mystats {
+    width: 211px;
+    /* border: 1px solid #ccc; */
+    display: inline-block;
+    margin-top: 10px;
+    height: 51px;
+    padding: 5px;
+    font-family:sans-serif;
+    /* color:#444; */
+    color:#3b3b3b;
+    font-size: 16px;
+    .myhalf {
+      width:49%;
+      display:inline-block;
+      text-align:center;
+      /* &:first-child {
+        border-right:1px solid #ccc;
+      } */
+    }
+  }
+  
+  @media (max-width:600px) {
+
+    .mycontainer{
+      width:360px;
+      margin: 50px 50px 50px 50px;
+    }
+
+    .mycell{
+      width: 35px;
+      height: 35px;
+    }
+    .myrow{
+      height: 35px;
+    }
+    .mycell .gamePiece{
+        width:25px;
+        height:25px;
+        /* margin: 6px 0 0 6px; */
+        margin: 5px 0 0 5px;
+        border-radius:20px;
+    }
+
+    .board-btn{
+        display:block;
+      /* background-color:#ddd; */
+      /* background-color:rgb(249,223,72); */
+      background-color:rgb(52,67,77);
+      
+      /* background-color:transparent; */
+      border:none;
+      border-radius: 20px;
+      color:white;
+      padding:10px;
+      font-size:14px;
+      margin-top:7px;
+      cursor:pointer;
+      width:80px;
+      margin-right:5px;
+      transition: all 0.3s;
+      &:hover {
+        /* background-color: rgb(25,213,208); */
+        background-color: #4F4036;
+        /* text-decoration: underline; */
+      }
+      float:left;
+    }
+
+    .mystats {
+      width: 160px;
+      /* border: 1px solid #ccc; */
+      display: inline-block;
+      margin-top: 5px;
+      height: 51px;
+      padding: 5px;
+      font-family:sans-serif;
+      /* color:#444; */
+      font-size: 12px;
+      color:#3b3b3b;
+      .myhalf {
+        width:49%;
+        display:inline-block;
+        text-align:center;
+        /* &:first-child {
+          border-right:1px solid #ccc;
+        } */
+      }
+    }
+  }

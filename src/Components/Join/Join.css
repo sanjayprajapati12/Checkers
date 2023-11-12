@@ -1,0 +1,62 @@
+.JoinPage{
+    width: 100vw;
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.JoinContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid black;
+    width: 50%;
+    height: 60%;
+    /* background: #fff; */
+    color: rgb(52,67,77);
+    /* background: rgb(52,67,77); */
+    background: transparent;
+    /* border: 1px solid rgb(52,67,77); */
+    /* box-shadow: 0 2px 4px rgb(0 0 10 / 64%), 0 8px 16px rgb(0 10 0 / 34%); */
+    /* border-radius: 20px;  */
+    padding: 1rem;
+
+}
+
+.JoinContainer > h1{
+    border-bottom:1px solid black ;
+    width: 30vw;
+    padding: 5px;
+    font-size: 2vmax;
+    text-align: center;
+}
+
+.joinInput{
+    width: 30vw;
+    padding: 0.8vmax;
+    border : none;
+    border-radius: 20px;
+    outline: none;
+    font-size: 1.2vmax ;
+    margin: 1.2vmax;
+    box-sizing: border-box;
+}
+
+.join-btn , .create-btn{
+    width: 30vw;
+    padding: 0.8vmax;
+    margin: 1.2vmax;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 20px;
+    background-color:rgb(52,67,77);
+    color:white;
+    font-size: 1.2vmax;
+    transition: all 0.3s;
+    &:hover {
+        background-color: #4F4036;
+    }
+    box-sizing: border-box;
+}
