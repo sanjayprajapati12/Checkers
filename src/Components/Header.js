@@ -1,4 +1,3 @@
-import { NavLink, redirect } from 'react-router-dom'
 import './Header.css'
 import { useParams } from 'react-router-dom'
 import {socket} from './Helper/Socket'

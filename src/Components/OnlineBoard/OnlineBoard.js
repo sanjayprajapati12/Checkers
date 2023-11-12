@@ -1,9 +1,8 @@
-import React, { useState , useEffect} from 'react';
+import React, { useEffect} from 'react';
 import Popup from "../Popup/Popup";
 import Row from "../Row/Row"
 import Statistics from "../Statistics/Statistics";
 import {socket} from '../Helper/Socket'
-import { flushSync } from 'react-dom';
 import useCustom from '../CustomHooks/useCustom';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
@@ -115,7 +114,7 @@ export default function OnlineBoard({gameId,player,oponent}) {
 
 			let decide = await looseDetection(board.get(), activePlayer.get())
 			if(decide === true){
-				if(activePlayer.get()=='b'){
+				if(activePlayer.get()==='b'){
 					const data = {
 						gameId : gameId,
 						win : 'r'
@@ -136,11 +135,6 @@ export default function OnlineBoard({gameId,player,oponent}) {
 	const updateBoard = (new_board) =>{
 		console.log("update called");
 		board.set(new_board);
-		// setState((prevState) => ({
-		// 	...prevState,
-		// 	board: new_board,
-		// }));
-
 	};  
 
 	const socketHandlePieceClick = (e)=>{
@@ -227,7 +221,7 @@ export default function OnlineBoard({gameId,player,oponent}) {
     	//place active piece, now unactive, in it's new place
         board[rowIndex][cellIndex] = activePiece.replace('a', '');
 
-        if ( (activePlayer == 'b' && rowIndex == 7) || (activePlayer == 'r' && rowIndex == 0) ) {
+        if ( (activePlayer === 'b' && rowIndex === 7) || (activePlayer === 'r' && rowIndex === 0) ) {
 			board[rowIndex][cellIndex] += ' k';
     	}
 
@@ -427,10 +421,6 @@ export default function OnlineBoard({gameId,player,oponent}) {
         for (let i = 0; i < board.length; i++) output.push(board[i].slice(0));
         return output;
     }
-
-	// const has_active = (rowIndex , cellIndex) =>{
-	// 	return (state.board[rowIndex][cellIndex].indexOf('a')>-1);
-	// };
 
 	return (
 		<>

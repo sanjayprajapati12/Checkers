@@ -3,7 +3,6 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AiBoard from './Components/AIBoard/AiBoard';
 import Header from './Components/Header';
-import Navbar from './Components/Navbar/Navbar';
 import LocalBoard from './Components/LocalBoard/LocalBoard';
 import MyNav from './Components/Navbar/MyNav';
 import Join from './Components/Join/Join';
@@ -14,7 +13,6 @@ function App() {
   return (
 
      <Router>
-      {/* <Navbar title="checkers" /> */}
       <MyNav title="Checkers" />
       <Routes>
         <Route

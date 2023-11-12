@@ -58,13 +58,13 @@ export default function AiBoard() {
 			setTimeout(alert(state.activePlayer + ' loose the game!') , 50)
 			console.log(state.activePlayer+ ' losse the game!');
 		}
-		else if(state.activePlayer == 'b') {
-			setTimeout(function() {ai();}.bind(this), 50);
+		else if(state.activePlayer === 'b') {
+			setTimeout(function() {ai()}, 50);
 		}
 	}, [state.activePlayer]);
 	
 	useEffect(()=>{
-		if(state.active==true && decision===true){
+		if(state.active===true && decision===true){
 			console.log("activated " );
 			let f = decisionTree.target.attributes['temp-data-row'].nodeValue
 			let s = decisionTree.target.attributes['temp-data-cell'].nodeValue
@@ -93,7 +93,7 @@ export default function AiBoard() {
 
 	useEffect(()=>{
 		const my_fun = async function(){
-			if(state.activePlayer == 'b' && decision===true){
+			if(state.activePlayer === 'b' && decision===true){
 				console.log("decision is made and useeffect " , decisionTree);
 				const new_board = await handlePieceClick(decisionTree);
 			}
@@ -106,7 +106,7 @@ export default function AiBoard() {
 		if(decisionTree.target.attributes['data-cell'].nodeValue!==null){
 			if(decisionTree.target.attributes['temp-data-cell'].nodeValue===null){
 				const my_fun = async function(){
-					if(state.activePlayer == 'b'){
+					if(state.activePlayer === 'b'){
 						if(state.active===true){
 							console.log("before execution " , state);	
 							const latest_boad = await handlePieceClick(decisionTree);
@@ -158,7 +158,7 @@ export default function AiBoard() {
 				console.log("2");
 				//this is activated if the piece clicked is a highlighted square, it moves the active piece to that spot.
 
-				let new_activePlayer = (state.activePlayer == 'r' ? 'b' : 'r');
+				let new_activePlayer = (state.activePlayer === 'r' ? 'b' : 'r');
 				setState((prevState) => {
 					// Clone the board to avoid direct mutation
 					let new_board = cloneBoard(state.board);
@@ -218,7 +218,7 @@ export default function AiBoard() {
     	//place active piece, now unactive, in it's new place
         board[rowIndex][cellIndex] = activePiece.replace('a', '');
 
-        if ( (activePlayer == 'b' && rowIndex == 7) || (activePlayer == 'r' && rowIndex == 0) ) {
+        if ( (activePlayer === 'b' && rowIndex === 7) || (activePlayer=== 'r' && rowIndex === 0) ) {
 			board[rowIndex][cellIndex]+= ' k';
     	}
 
@@ -252,7 +252,7 @@ export default function AiBoard() {
 		let directionOfMotion = [];
 		let leftOrRight = [1,-1];
 		let isKing = board[rowIndex][cellIndex].indexOf('k') > -1;
-		if (activePlayer == 'b') {
+		if (activePlayer === 'b') {
 			directionOfMotion.push(1);
 		}
 		else {
@@ -274,7 +274,7 @@ export default function AiBoard() {
 				if (
 					typeof board[rowIndex+directionOfMotion[j]] !== 'undefined' &&
 					typeof board[rowIndex+directionOfMotion[j]][cellIndex + leftOrRight[i]] !== 'undefined' &&
-					board[rowIndex+directionOfMotion[j]][cellIndex + leftOrRight[i]] == '-'
+					board[rowIndex+directionOfMotion[j]][cellIndex + leftOrRight[i]] ==='-'
 					){
 						if (possibleMoves.map(function(move){return String(move.targetRow)+String(move.targetCell);}).indexOf(String(rowIndex+directionOfMotion[j])+String(cellIndex+leftOrRight[i])) < 0) {
 						possibleMoves.push({targetRow: rowIndex+directionOfMotion[j], targetCell: cellIndex+leftOrRight[i], wouldDelete:[]});
@@ -332,8 +332,8 @@ export default function AiBoard() {
 					typeof board[sourceRowIndex+directions[k]][sourceCellIndex+leftOrRight[l]] !== 'undefined' &&
 					typeof board[sourceRowIndex+(directions[k]*2)] !== 'undefined' &&
 					typeof board[sourceRowIndex+(directions[k]*2)][sourceCellIndex+(leftOrRight[l]*2)] !== 'undefined' &&
-					board[sourceRowIndex+directions[k]][sourceCellIndex+leftOrRight[l]].indexOf((activePlayer == 'r' ? 'b' : 'r')) > -1 &&
-					board[sourceRowIndex+(directions[k]*2)][sourceCellIndex+(leftOrRight[l]*2)] == '-'
+					board[sourceRowIndex+directions[k]][sourceCellIndex+leftOrRight[l]].indexOf((activePlayer === 'r' ? 'b' : 'r')) > -1 &&
+					board[sourceRowIndex+(directions[k]*2)][sourceCellIndex+(leftOrRight[l]*2)] === '-'
 					){
 					if (possibleJumps.map(function(move){return String(move.targetRow)+String(move.targetCell);}).indexOf(String(sourceRowIndex+(directions[k]*2))+String(sourceCellIndex+(leftOrRight[l]*2))) < 0) {
 						//this eventual jump target did not already exist in the list
@@ -391,10 +391,6 @@ export default function AiBoard() {
         for (let i = 0; i < board.length; i++) output.push(board[i].slice(0));
         return output;
     }
-
-	const has_active = (rowIndex , cellIndex) =>{
-		return (state.board[rowIndex][cellIndex].indexOf('a')>-1);
-	};
 
 
 	const ai =  async () => {
@@ -471,7 +467,7 @@ export default function AiBoard() {
 						if (buildingObject.terminal) {
 							//console.log('a terminal move was found');
 							//if terminal, score is easy, just depends on who won
-							if (activePlayer == state.activePlayer) {
+							if (activePlayer === state.activePlayer) {
 								buildingObject.score = 100-depth;
 							}
 							else {
@@ -483,7 +479,7 @@ export default function AiBoard() {
 							buildingObject.score = 0;
 						}
 						else {	
-							buildingObject.children = aiBranch(buildingObject.board, (activePlayer == 'r' ? 'b' : 'r'), depth+1);
+							buildingObject.children = aiBranch(buildingObject.board, (activePlayer === 'r' ? 'b' : 'r'), depth+1);
 							//if not terminal, we want the best score from this route (or worst depending on who won)							
 							let scoreHolder = [];
 					        for (let l = 0; l < buildingObject.children.length; l++) {
@@ -495,7 +491,7 @@ export default function AiBoard() {
 					        scoreHolder.sort(function(a,b){ if (a > b) return -1; if (a < b) return 1; return 0; });
 
 					        if (scoreHolder.length > 0) {
-						        if (activePlayer == state.activePlayer) {
+						        if (activePlayer === state.activePlayer) {
 									buildingObject.score = scoreHolder[scoreHolder.length-1];
 								}
 								else {
@@ -503,7 +499,7 @@ export default function AiBoard() {
 								}
 							}
 							else {
-								if (activePlayer == state.activePlayer) {
+								if (activePlayer === state.activePlayer) {
 									buildingObject.score = 100-depth;
 								}
 								else {
