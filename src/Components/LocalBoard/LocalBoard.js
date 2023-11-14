@@ -3,6 +3,7 @@ import Popup from "../Popup/Popup";
 import Row from "../Row/Row"
 import Statistics from "../Statistics/Statistics";
 import './LocalBoard.css'
+import Swal from 'sweetalert2';
 
 export default function LocalBoard() {
 	const len = 8;
@@ -35,11 +36,22 @@ export default function LocalBoard() {
 	};
 
 	useEffect(()=>{
-		console.log(state.winner);
-		if(state.winner!=='#'){
-			setTimeout(alert(state.winner + ' win the game !') , 500)
-			reset();
+		const my_fun = async ()=>{
+			console.log(state.winner);
+			if(state.winner!=='#'){
+				if(state.winner==='r'){
+					await Swal.fire({
+						title: 'Game Over',
+						icon: 'success',
+						text: `Congratulations ! ${state.winner} won the game`,
+						showCancelButton: false,
+						showConfirmButton: true,
+					});
+					reset();
+				}
+			}
 		}
+		my_fun();
 	} , [state.winner])
 
 	useEffect(() => {

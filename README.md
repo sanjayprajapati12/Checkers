@@ -9,14 +9,15 @@
 3. [Getting Started](#getting-started)
 4. [Contributing](#contributing)
 5. [Backend](#backend)
+6. [Future Feature](#futurefeature)
 
 ## Introduction
 
-Welcome to the Checkers Game! This game is designed to provide a fun and engaging experience for users who enjoy playing puzzle.
+Welcome to the Checkers Game! This game is designed to provide a fun and engaging experience for users who enjoy playing games.
 
 ## Built With
 
-Our Puzzle App is built using the following technologies:
+Our Checkers game is built using the following technologies:
 
 - **Node.js:** The backend of the app is powered by Node.js, providing a fast and scalable server environment.
 
@@ -60,3 +61,10 @@ Contributions are what make the open source community such an amazing place to l
 ## Backend 
 
 You can find backend [here](https://github.com/sanjayprajapati12/Checkers_server)
+
+## Future Features
+
+* Ability to make account and show game history and rattings
+* Ability to name each player
+* Ability to drag checkers
+* Ability to set time for a play 

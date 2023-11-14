@@ -2,9 +2,12 @@ import React, { useState , useEffect} from 'react';
 import Popup from "../Popup/Popup";
 import Row from "../Row/Row"
 import Statistics from "../Statistics/Statistics";
+import Swal from 'sweetalert2';
 import './AiBoard.css'
 
 export default function AiBoard() {
+	const len = 8;
+	
 	const [decisionTree , setDecisionTree] = useState({
 		target:{
 			attributes:{
@@ -42,25 +45,69 @@ export default function AiBoard() {
 		aiDepthCutoff: 3,
 		count: 0,
 		active : false,
-		popShown: false
+		popShown: false,
+		winner : '#'
 	});
 
 	const aboutPopOpen = () => {
 		setState({ ...state, popShown: true });
 	};
 
+	useEffect(()=>{
+		const my_fun = async ()=>{
+			console.log(state.winner);
+			if(state.winner!=='#'){
+				if(state.winner==='r'){
+					await Swal.fire({
+						title: 'Game Over',
+						icon: 'success',
+						text: `Congratulations ! You won the game`,
+						showCancelButton: false,
+						showConfirmButton: true,
+					});
+					reset();
+				}
+				else{
+					await Swal.fire({
+						title: 'Game Over',
+						icon: 'error',
+						text: `Sorry, you lost.Better luck next time`,
+						showCancelButton: false,
+						showConfirmButton: true,
+					});
+					reset();
+				}
+			}
+		}
+		my_fun();
+	} , [state.winner])
+
 	const aboutPopClose = () => {
 		setState({ ...state, popShown: false });
 	};
 
 	useEffect(() => {
-		if (winDetection(state.board, state.activePlayer)) {
-			setTimeout(alert(state.activePlayer + ' loose the game!') , 50)
-			console.log(state.activePlayer+ ' losse the game!');
+		const my_fun = async()=>{
+			if(state.activePlayer==='r'){
+				let decide = await looseDetection(state.board, state.activePlayer)
+				if(decide===true){
+					setState((prevState)=> ({
+						...prevState,
+						winner : 'b'
+					}))
+				}
+			}
+			else{
+				if (winDetection(state.board, state.activePlayer)) {
+					setTimeout(alert(state.activePlayer + ' loose the game!') , 50)
+					console.log(state.activePlayer+ ' losse the game!');
+				}
+				else if(state.activePlayer === 'b') {
+					setTimeout(function() {ai()}, 50);
+				}
+			}
 		}
-		else if(state.activePlayer === 'b') {
-			setTimeout(function() {ai()}, 50);
-		}
+		my_fun();
 	}, [state.activePlayer]);
 	
 	useEffect(()=>{
@@ -372,6 +419,20 @@ export default function AiBoard() {
 		return possibleJumps;
 	}
 
+	const looseDetection = (new_board, player) =>{
+		for(let i=0 ; i<len ; i++){
+			for(let j=0 ; j<len ; j++){
+				if(new_board[i][j].indexOf(state.activePlayer)>-1){
+					let possibleMoves = findAllPossibleMoves(i, j, new_board, player);
+					if(possibleMoves.length>0){
+						return false;
+					}
+				}
+			}
+		}
+		return true;
+	}
+
 	const winDetection = (board, enemyPlayer) =>{
 		// let enemyPlayer = (activePlayer == 'r' ? 'b' : 'r');
 
@@ -430,7 +491,10 @@ export default function AiBoard() {
 			  });
 		}
 		else {
-			alert('no moves, you win!');
+			setState((prevState)=> ({
+				...prevState,
+				winner : 'r'
+			}))
 		}
 	}
 
