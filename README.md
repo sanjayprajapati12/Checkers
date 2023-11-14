@@ -1,70 +1,62 @@
-# Getting Started with Create React App
+# Checkers game 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[view demo](https://chekerss.netlify.app/)
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+1. [Introduction](#introduction)
+2. [Features](#features)
+3. [Getting Started](#getting-started)
+4. [Contributing](#contributing)
+5. [Backend](#backend)
 
-### `npm start`
+## Introduction
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Welcome to the Checkers Game! This game is designed to provide a fun and engaging experience for users who enjoy playing puzzle.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Built With
 
-### `npm test`
+Our Puzzle App is built using the following technologies:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Node.js:** The backend of the app is powered by Node.js, providing a fast and scalable server environment.
 
-### `npm run build`
+- **React.js:** The frontend is developed using React.js, ensuring a dynamic and responsive user interface.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Express.js:** Express.js is used to create the RESTful APIs and handle server-side routing.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Features
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Local Play:** Experience the timeless joy of the checkers game when you don't have internet and want to play with friends.
 
-### `npm run eject`
+- **AI Play:** Experience the timeless joy of the checkers game when you want to test your skill with artificial intelligence. 
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **Online Play:** Experience the timeless joy of the checkers game when you are not with your friend and want to play.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Getting Started
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+To get started with our Checkers, follow these steps:
 
-## Learn More
+1. Clone the repository to your local machine:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+   ```sh
+   git clone https://github.com/sanjayprajapati12/Checkers.git
+    ```
+2. Install NPM packages
+   ```sh
+   npm install
+   ```    
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Contributing
 
-### Code Splitting
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/ AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-### Analyzing the Bundle Size
+## Backend 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+You can find backend [here](https://github.com/sanjayprajapati12/Checkers_server)
