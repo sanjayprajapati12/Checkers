@@ -1,21 +1,27 @@
 body {
-    width: 100vw;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-image: url(../../assets/cool-background_2.png);
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url(../../assets/cool-background_2.png);
 }
 
-.mycontainer {
-  width: 460px;
-  margin: 30px auto 0 auto;
+.localcontainer {
+  width : 80vmin;
+  /* width: 460px; */
+  margin: 5vh auto 0 auto;
+  /* margin: 30px auto 0 auto; */
 }
 
 .myrow {
-  height: 50px;
-  margin-bottom: 5px;
+  height: 7.2vmin;
+  margin-bottom: 0.72vmin;
+  /* height: 50px;
+  margin-bottom: 5px; */
 }
 
 .myrow:nth-child(odd) .mycell:nth-child(odd) {
@@ -32,18 +38,25 @@ body {
 }
 
 .mycell {
-  height:50px;
-  width:50px;
+  height:7.2vmin;
+  width:7.2vmin;
+  /* height:50px;
+  width:50px; */
   display:inline-block;
   border:1px solid #060000;
-  margin-right:5px;
+  margin-right:0.72vmin;
+  /* margin-right:5px; */
 }
 
 .mycell .gamePiece {
-  width:40px;
+  width:5.75vmin;
+  height:5.75vmin;
+  margin:0.72vmin 0 0 0.72vmin;
+  border-radius:5.75vmin;
+  /* width:40px;
   height:40px;
   margin:5px 0 0 5px;
-  border-radius:40px;
+  border-radius:40px; */
   cursor:pointer;
   position:relative;
 }
@@ -52,10 +65,14 @@ body {
   content: ' ';
   position: absolute;
   right: 0;
-  top: -5px;
-  height: 38px;
-  width: 38px;
-  border-radius: 40px;
+  top: -0.72vmin;
+  /* top: -5px; */
+  height: 5.46vmin;
+  width: 5.46vmin;
+  /* height: 38px;
+  width: 38px; */
+  border-radius: 5.75vmin;
+  /* border-radius: 40px; */
   pointer-events: none;
 }
 
@@ -80,7 +97,8 @@ body {
 
 .mycell.mycell-ab .gamePiece, .mycell.mycell-ar .gamePiece {
   background-color: #6a6aff;
-  box-shadow: 0px 0px 24px #2983f3;
+  box-shadow: 0px 0px 3.45vmin #2983f3;
+  /* box-shadow: 0px 0px 24px #2983f3; */
 }
 
 .mycell.mycell-ab.k .gamePiece:after, .mycell.mycell-ar.k .gamePiece:after {
@@ -96,37 +114,49 @@ body {
 }
 
 
-.board.r .mycell-b .gamePiece {
+.localboard.r .mycell-b .gamePiece {
   opacity:0.6;
 }
-.board.b .mycell-r .gamePiece {
+.localboard.b .mycell-r .gamePiece {
   opacity:0.6;
 }
 
-.board {
+.localboard {
   float: left;
   transition-duration: 0.8s;
   transition-property: transform;
 }
 
-.board-btn {
+.localboard-btn {
   display:block;
   background-color:rgb(52,67,77);
   border:none;
-  border-radius: 20px;
+
+  border-radius: 2.87vmin;
+  padding:2.87vmin;
+  font-size:2.87vmin;
   color:white;
-  padding:20px;
-  font-size:20px;
-  margin-top:10px;
+  margin-top:1.43vmin;
+  margin-right:0.72vmin;
+  width:15.7vmin;
+  /* border-radius: 20px; */
+  /* padding:20px;
+  font-size:20px; */
+  /* margin-top:10px; */
+  /* margin-right:5px; */
+  /* width:109px; */
   cursor:pointer;
-  width:109px;
-  margin-right:5px;
   transition: all 0.3s;
   float:left;
 }
 
-.board-btn:hover {
+.localboard-btn:hover {
   background-color: #4F4036;
+}
+
+.localboard.b {
+  transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
 }
 
 .clear {
@@ -145,19 +175,23 @@ body {
 
 .mypop .internal {
   position:relative;
-  width: 400px;
+  width: 57vmin;
+  /* width: 400px; */
   margin: 0 auto;
   background-color: white;
   /* background-color:transparent; */
   border: 1px solid #ccc;
-  min-height: 300px;
+  min-height: 43.16vmin;
+  margin-top: 7.2vmin;
+  padding:7.2vmin;
+  /* min-height: 300px;
   margin-top: 50px;
-  padding:50px;
-
+  padding:50px; */
 }
 
 .mypop .internal .close {
-  padding: 0 5px;
+  padding: 0 0.72vmin;
+  /* padding: 0 5px; */
   position: absolute;
   right: 0;
   width: auto;
@@ -165,96 +199,25 @@ body {
 }
 
 .mystats {
-  width: 211px;
+  width: 30.35vmin;
+  /* width: 211px; */
   /* border: 1px solid #ccc; */
-  display: inline-block;
-  margin-top: 10px;
-  height: 51px;
-  padding: 5px;
+  display: flex;
+  height: 7.2vmin;
+  padding: 0.72vmin;
+  margin-top: 1.43vmin;
+  /* margin-top: 10px; */
+  /* height: 51px; */
+  /* padding: 5px; */
   font-family:sans-serif;
   /* color:#444; */
   color:#3b3b3b;
-  font-size: 16px;
+  font-size: 2.3vmin;
+  /* font-size: 16px; */
 }
 
 .mystats .half {
   width:49%;
   display:inline-block;
   text-align:center;
-}
-
-    
-@media only screen and (max-width:600px) {
-    .mycontainer{
-      width:360px;
-      margin: 50px 50px 50px 50px;
-    }
-
-    .myrow {
-      height: 35px;
-      margin-bottom: 5px;
-    }
-
-    .mycell {
-      height:35px;
-      width:35px;
-    }
-
-    .mycell .gamePiece {
-      width:30px;
-      height:30px;
-      margin:3px 0 0 3px;
-      border-radius:30px;
-      cursor:pointer;
-      position:relative;
-    }
-    
-    .mycell .gamePiece:after {
-      content: ' ';
-      position: absolute;
-      right: 0;
-      top: -5px;
-      height: 28px;
-      width: 28px;
-      border-radius: 30px;
-      pointer-events: none;
-    }
-
-    .board-btn{
-      display:block;
-      background-color:rgb(52,67,77); 
-      border:none;
-      border-radius: 20px;
-      color:white;
-      padding:10px;
-      font-size:14px;
-      margin-top:7px;
-      cursor:pointer;
-      width:100px;
-      margin-right:5px;
-      transition: all 0.3s;
-      float:left;
-    }
-    
-    .board-btn:hover{
-      background-color: #4F4036;
-    }
-
-    .mystats {
-      width: 120px;
-      display: inline-block;
-      margin-top: 5px;
-      height: 100px;
-      padding: 4px;
-      font-family:sans-serif;
-      font-size: 16px;
-      color:#3b3b3b;
-    }
-    
-    .mystats .half {
-      width:49%;
-      display:inline-block;
-      text-align:center;
-    }
-
 }

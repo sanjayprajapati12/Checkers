@@ -32,12 +32,12 @@ export default function Statistics(props) {
     return (
       <div className="mystats">
         <div className="myhalf" style={{ color: '#e75656' }}>
-          Red(Player1)<br />
+          Red({props.Player1})<br />
           {redSoldiers} Soldiers<br />
           {redKings} Kings
         </div>
         <div className="myhalf">
-          Black(Player2)<br />
+          Black({props.Player2})<br />
           {blackSoldiers} Soldiers<br />
           {blackKings} Kings
         </div>

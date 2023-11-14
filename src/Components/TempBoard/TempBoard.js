@@ -2,31 +2,11 @@ import React, { useState , useEffect} from 'react';
 import Popup from "../Popup/Popup";
 import Row from "../Row/Row"
 import Statistics from "../Statistics/Statistics";
-import './AiBoard.css'
+import './TempBoard.css'
 
-export default function AiBoard() {
-	const [decisionTree , setDecisionTree] = useState({
-		target:{
-			attributes:{
-				'data-row':{
-					nodeValue:null
-				},
-				'data-cell':{
-					nodeValue:null
-				},
-				'temp-data-row':{
-					nodeValue:null
-				},
-				'temp-data-cell':{
-					nodeValue:null
-				}
-			}
-		}
-	})
+export default function TempBoard() {
+	const len = 8;
 
-	const [decision , setDecision] = useState(false)
-
-	let count = 0;
 	const [state, setState] = useState({
 		board: [
 		['b', '-', 'b', '-', 'b', '-', 'b', '-'],
@@ -42,7 +22,8 @@ export default function AiBoard() {
 		aiDepthCutoff: 3,
 		count: 0,
 		active : false,
-		popShown: false
+		popShown: false,
+		winner : '#'
 	});
 
 	const aboutPopOpen = () => {
@@ -53,74 +34,35 @@ export default function AiBoard() {
 		setState({ ...state, popShown: false });
 	};
 
-	useEffect(() => {
-		if (winDetection(state.board, state.activePlayer)) {
-			setTimeout(alert(state.activePlayer + ' loose the game!') , 50)
-			console.log(state.activePlayer+ ' losse the game!');
-		}
-		else if(state.activePlayer === 'b') {
-			setTimeout(function() {ai()}, 50);
-		}
-	}, [state.activePlayer]);
-	
 	useEffect(()=>{
-		if(state.active===true && decision===true){
-			console.log("activated " );
-			let f = decisionTree.target.attributes['temp-data-row'].nodeValue
-			let s = decisionTree.target.attributes['temp-data-cell'].nodeValue
-			setDecisionTree((prevState) => {
-				return {
-				  target: {
-					attributes: {
-						'data-row':{
-							nodeValue:f
-						},
-						'data-cell':{
-							nodeValue:s
-						},
-						'temp-data-row':{
-							nodeValue:null
-						},
-						'temp-data-cell':{
-							nodeValue:null
-						}
-					},
-				  },
-				};
-			  });
+		console.log(state.winner);
+		if(state.winner!=='#'){
+			setTimeout(alert(state.winner + ' win the game !') , 500)
+			reset();
 		}
-	} , [state.active])
+	} , [state.winner])
 
-	useEffect(()=>{
+	useEffect(() => {
 		const my_fun = async function(){
-			if(state.activePlayer === 'b' && decision===true){
-				console.log("decision is made and useeffect " , decisionTree);
-				const new_board = await handlePieceClick(decisionTree);
+			let decide = await looseDetection(state.board, state.activePlayer)
+			if(decide === true){
+				if(state.activePlayer=='b'){
+					setState((prevState)=> ({
+						...prevState,
+						winner : 'r'
+					}))
+				}
+				else{
+					setState((prevState)=> ({
+						...prevState,
+						winner : 'b'
+					}))
+				}
 			}
 		}
 		my_fun();
-	},[decision])
-
-	useEffect(()=>{
-		console.log(decisionTree);
-		if(decisionTree.target.attributes['data-cell'].nodeValue!==null){
-			if(decisionTree.target.attributes['temp-data-cell'].nodeValue===null){
-				const my_fun = async function(){
-					if(state.activePlayer === 'b'){
-						if(state.active===true){
-							console.log("before execution " , state);	
-							const latest_boad = await handlePieceClick(decisionTree);
-						}
-					}
-				}
-				my_fun();
-			}
-			else{
-				setDecision(true)
-			}
-		}
-	} , [decisionTree])
-
+	}, [state.activePlayer]);
+	
 	const updateBoard = (new_board) =>{
 		console.log("update called");
 		setState((prevState) => ({
@@ -128,16 +70,13 @@ export default function AiBoard() {
 			board: new_board,
 		}));
 	};  
-	
 
-    const handlePieceClick = async(e) => {
-		console.log("andar " , (e.target.attributes["data-cell"]));	
-
+    const handlePieceClick = async (e) => {
+		// console.log("andar " , e);
 		let rowIndex = parseInt(e.target.attributes['data-row'].nodeValue);
 		let cellIndex = parseInt(e.target.attributes['data-cell'].nodeValue);
-
+		
 			console.log(state.board[rowIndex][cellIndex].indexOf(state.activePlayer));
-			
 			if (state.board[rowIndex][cellIndex].indexOf(state.activePlayer) > -1) {
 				console.log("1");
 				//this is triggered if the piece that was clicked on is one of the player's own pieces, it activates it and highlights possible moves
@@ -158,28 +97,12 @@ export default function AiBoard() {
 				console.log("2");
 				//this is activated if the piece clicked is a highlighted square, it moves the active piece to that spot.
 
-				let new_activePlayer = (state.activePlayer === 'r' ? 'b' : 'r');
+				let new_activePlayer = (state.activePlayer == 'r' ? 'b' : 'r');
+				let new_board = cloneBoard(state.board);
+				new_board =  await executeMove(rowIndex, cellIndex, new_board, state.activePlayer);
 				setState((prevState) => {
-					// Clone the board to avoid direct mutation
-					let new_board = cloneBoard(state.board);
-					new_board = executeMove(rowIndex, cellIndex, new_board, state.activePlayer);
-				
 					return { ...prevState, activePlayer: new_activePlayer , active: false , board: new_board };
 				});
-
-				// if (winDetection(state.board, state.activePlayer)) {
-				// 	alert(state.activePlayer + 'won the game!');
-				// 	console.log(state.activePlayer+ ' won the game!');
-				// }
-				// else {
-					// console.log(state.activePlayer);
-					// console.log("3");
-					// async
-					// setState((prevState) => ({
-					// 	...prevState,
-					// 	activePlayer : new_activePlayer,
-					// }))
-				// }
 			}
 			else{
 				console.log("temp_if")
@@ -199,8 +122,10 @@ export default function AiBoard() {
         		}
         	}
         }
+		
 		// console.log("activePiece , " , activePiece);
     	//make any jump deletions
+
         let deletions = board[rowIndex][cellIndex].match(/d\d\d/g);
         if (typeof deletions !== undefined && deletions !== null && deletions.length > 0) {
 			for (let k = 0; k < deletions.length; k++) {
@@ -218,24 +143,26 @@ export default function AiBoard() {
     	//place active piece, now unactive, in it's new place
         board[rowIndex][cellIndex] = activePiece.replace('a', '');
 
-        if ( (activePlayer === 'b' && rowIndex === 7) || (activePlayer=== 'r' && rowIndex === 0) ) {
-			board[rowIndex][cellIndex]+= ' k';
+        if ( (activePlayer == 'b' && rowIndex == 7) || (activePlayer == 'r' && rowIndex == 0) ) {
+			board[rowIndex][cellIndex] += ' k';
     	}
 
     	return board;
     }
 
-    
     const highlightPossibleMoves = ( new_board , rowIndex , cellIndex ) =>{
         //unhighlight any previously highlighted cells
 		// let new_board = state.board;
-        new_board = new_board.map(function(row){return row.map(function(cell){return cell.replace('h', '-').replace(/d\d\d/g, '').trim()});}); 
+        
+		new_board = new_board.map(function(row){return row.map(function(cell){return cell.replace('h', '-').replace(/d\d\d/g, '').trim()});}); 
         let possibleMoves = findAllPossibleMoves(rowIndex, cellIndex, new_board, state.activePlayer);
-        // testing
+        
+		// testing
 		// console.log(possibleMoves);
 
         //actually highlight the possible moves on the board
-        //the 'highlightTag' inserts the information in to a cell that specifies 
+        //the 'highlightTag' inserts the information in to a cell that specifies
+
         for (let j = 0; j < possibleMoves.length; j++) {
             let buildHighlightTag = 'h ';
             for (let k = 0; k < possibleMoves[j].wouldDelete.length; k++) {
@@ -252,7 +179,7 @@ export default function AiBoard() {
 		let directionOfMotion = [];
 		let leftOrRight = [1,-1];
 		let isKing = board[rowIndex][cellIndex].indexOf('k') > -1;
-		if (activePlayer === 'b') {
+		if (activePlayer == 'b') {
 			directionOfMotion.push(1);
 		}
 		else {
@@ -274,7 +201,7 @@ export default function AiBoard() {
 				if (
 					typeof board[rowIndex+directionOfMotion[j]] !== 'undefined' &&
 					typeof board[rowIndex+directionOfMotion[j]][cellIndex + leftOrRight[i]] !== 'undefined' &&
-					board[rowIndex+directionOfMotion[j]][cellIndex + leftOrRight[i]] ==='-'
+					board[rowIndex+directionOfMotion[j]][cellIndex + leftOrRight[i]] == '-'
 					){
 						if (possibleMoves.map(function(move){return String(move.targetRow)+String(move.targetCell);}).indexOf(String(rowIndex+directionOfMotion[j])+String(cellIndex+leftOrRight[i])) < 0) {
 						possibleMoves.push({targetRow: rowIndex+directionOfMotion[j], targetCell: cellIndex+leftOrRight[i], wouldDelete:[]});
@@ -293,7 +220,6 @@ export default function AiBoard() {
 		return possibleMoves;
 	}
 	
-	
 	const reset = () => {
 		setState({
 			...state,
@@ -308,7 +234,8 @@ export default function AiBoard() {
 				['-', 'r', '-', 'r', '-', 'r', '-', 'r']
 			],
 			activePlayer: 'r',
-			active : false
+			active : false,
+			winner : '#'
 		});
 	};
 	
@@ -372,18 +299,18 @@ export default function AiBoard() {
 		return possibleJumps;
 	}
 
-	const winDetection = (board, enemyPlayer) =>{
-		// let enemyPlayer = (activePlayer == 'r' ? 'b' : 'r');
-
-		let result = true;
-		for (let i = 0; i < board.length; i++) {
-			for (let j = 0; j < board[i].length; j++) {
-				if (board[i][j].indexOf(enemyPlayer) > -1) {
-					result = false;
+	const looseDetection = (new_board, player) =>{
+		for(let i=0 ; i<len ; i++){
+			for(let j=0 ; j<len ; j++){
+				if(new_board[i][j].indexOf(state.activePlayer)>-1){
+					let possibleMoves = findAllPossibleMoves(i, j, new_board, player);
+					if(possibleMoves.length>0){
+						return false;
+					}
 				}
 			}
 		}
-		return result;
+		return true;
 	}
 	
 	const cloneBoard = (board) =>{
@@ -392,180 +319,27 @@ export default function AiBoard() {
         return output;
     }
 
+	const has_active = (rowIndex , cellIndex) =>{
+		return (state.board[rowIndex][cellIndex].indexOf('a')>-1);
+	};
 
-	const ai =  async () => {
-		//prep a branching future prediction
-		// state = state;
-		setDecision(false)
-		count = 0;
-		console.time('decisionTree');
-		console.log('starting ai...........')
-		const temp_decisionTree = await aiBranch(state.board, state.activePlayer, 1);
-		
-		console.log('done ai...........')
-		console.timeEnd('decisionTree');
-
-		console.log(count);
-		// execute the most favorable move 
-		if (temp_decisionTree !== null && temp_decisionTree.length > 0) {
-			setDecisionTree((prevState) => {
-				return {
-				  target: {
-					attributes: {
-						'data-row':{
-							nodeValue:temp_decisionTree[0].piece.targetRow
-						},
-						'data-cell':{
-							nodeValue:temp_decisionTree[0].piece.targetCell
-						},
-						'temp-data-row':{
-							nodeValue:temp_decisionTree[0].move.targetRow
-						},
-						'temp-data-cell':{
-							nodeValue:temp_decisionTree[0].move.targetCell
-						}
-					},
-				  },
-				};
-			  });
-		}
-		else {
-			alert('no moves, you win!');
-		}
-	}
-
-	const aiBranch = (hypotheticalBoard, activePlayer, depth) => {
-		count++;
-		let output = [];
-		for (let i = 0; i < hypotheticalBoard.length; i++) {
-			for (let j = 0; j < hypotheticalBoard[i].length; j++) {
-				if (hypotheticalBoard[i][j].indexOf(activePlayer) > -1) {
-					let possibleMoves = findAllPossibleMoves(i, j, hypotheticalBoard, activePlayer);
-					for (let k = 0; k < possibleMoves.length; k++) {
-						let tempBoard = cloneBoard(hypotheticalBoard);
-                    	tempBoard[i][j] = 'a'+tempBoard[i][j];
-
-						let buildHighlightTag = 'h ';
-						for (let m = 0; m < possibleMoves[k].wouldDelete.length; m++) {
-							buildHighlightTag += 'd'+String(possibleMoves[k].wouldDelete[m].targetRow) + String(possibleMoves[k].wouldDelete[m].targetCell)+' ';
-						}
-						tempBoard[possibleMoves[k].targetRow][possibleMoves[k].targetCell] = buildHighlightTag;
-
-						let buildingObject = {
-							piece: {targetRow: i, targetCell: j},
-							move:possibleMoves[k],
-							board: executeMove(possibleMoves[k].targetRow, possibleMoves[k].targetCell, tempBoard, activePlayer),
-							terminal: null,
-							children:[],
-							score:0,
-							activePlayer: activePlayer,
-							depth: depth,
-						}
-						//does that move win the game?
-						buildingObject.terminal = winDetection(buildingObject.board, activePlayer);						
-
-						if (buildingObject.terminal) {
-							//console.log('a terminal move was found');
-							//if terminal, score is easy, just depends on who won
-							if (activePlayer === state.activePlayer) {
-								buildingObject.score = 100-depth;
-							}
-							else {
-								buildingObject.score = -100-depth;
-							}
-						}
-						else if(depth > state.aiDepthCutoff) {
-							//don't want to blow up the call stack boiiiiii
-							buildingObject.score = 0;
-						}
-						else {	
-							buildingObject.children = aiBranch(buildingObject.board, (activePlayer === 'r' ? 'b' : 'r'), depth+1);
-							//if not terminal, we want the best score from this route (or worst depending on who won)							
-							let scoreHolder = [];
-					        for (let l = 0; l < buildingObject.children.length; l++) {
-					        	if (typeof buildingObject.children[l].score !== 'undefined'){
-					        		scoreHolder.push(buildingObject.children[l].score);
-					        	}
-					        }
-
-					        scoreHolder.sort(function(a,b){ if (a > b) return -1; if (a < b) return 1; return 0; });
-
-					        if (scoreHolder.length > 0) {
-						        if (activePlayer === state.activePlayer) {
-									buildingObject.score = scoreHolder[scoreHolder.length-1];
-								}
-								else {
-									buildingObject.score = scoreHolder[0];
-								}
-							}
-							else {
-								if (activePlayer === state.activePlayer) {
-									buildingObject.score = 100-depth;
-								}
-								else {
-									buildingObject.score = -100-depth;
-								}
-							}
-						}
-
-						if (activePlayer == state.activePlayer) {
-							for (let n = 0; n < buildingObject.move.wouldDelete.length; n++) {
-								if (hypotheticalBoard[buildingObject.move.wouldDelete[n].targetRow][buildingObject.move.wouldDelete[n].targetCell].indexOf('k') > -1) {
-									buildingObject.score+=(25-depth);
-								}
-								else {
-									buildingObject.score+=(10-depth);
-								}
-							}
-							if ((JSON.stringify(hypotheticalBoard).match(/k/g) || []).length < (JSON.stringify(buildingObject.board).match(/k/g) || []).length) {
-								//new king made after this move
-								buildingObject.score+=(15-depth);
-							}
-						}
-						else {
-							for (let n = 0; n < buildingObject.move.wouldDelete.length; n++) {
-								if (hypotheticalBoard[buildingObject.move.wouldDelete[n].targetRow][buildingObject.move.wouldDelete[n].targetCell].indexOf('k') > -1) {
-									buildingObject.score-=(25-depth);
-								}
-								else {
-									buildingObject.score-=(10-depth);
-								}
-							}							
-							if ((JSON.stringify(hypotheticalBoard).match(/k/g) || []).length < (JSON.stringify(buildingObject.board).match(/k/g) || []).length) {
-								//new king made after this move
-								buildingObject.score-=(15-depth);
-							}
-						}
-						buildingObject.score+=buildingObject.move.wouldDelete.length;
-						output.push(buildingObject);
-					}
-				}
-			}
-		}
-
-		output = output.sort(function(a,b){ if (a.score > b.score) return -1; if (a.score < b.score) return 1; return 0; });
-		return output;
-	}
-
-  return (
-	<>
-		<div className="aicontainer">
-		<h2>You are playing with AI</h2>
-		<div className={'aiboard ' + state.activePlayer}>
+	return (
+	// <div className='main'>
+		<div className="tempcontainer">
+		<div className={'tempboard ' + state.activePlayer}>
 			{state.board.map((row, index) => (
 			<Row key={index} rowArr={row} handlePieceClick={handlePieceClick} rowIndex={index} />
 			))}
 		</div>
 		<div className="clear"></div>
-		<button className="aiboard-btn" onClick={reset}>Reset</button>
-		<button className="aiboard-btn" onClick={aboutPopOpen}>Rules</button>
-		<Statistics board={state.board} Player1={"You"} Player2={"AI"}/>
+		<button className="tempboard-btn" onClick={reset}>Reset</button>
+		<button className="tempboard-btn" onClick={aboutPopOpen}>Rules</button>
+		<Statistics board={state.board}/>
 		<Popup shown={state.popShown} close={aboutPopClose} copy="
 				Hey! Thanks for checking out my checkers game. Before playing, keep in mind these Checkers rules.  Players start with 12 pieces each, moving diagonally forward and capturing opponents by jumping over them. When a piece reaches the opponent's last row, it becomes a king with the ability to move and capture in both directions. The goal is to capture all of the opponent's pieces or block them from making a legal move. Kings are crowned upon reaching the last row, and the game ends when one player accomplishes the objective or the opponent cannot make a legal move.
 		"/>
 		{/* Include <Statistics /> and <Popup /> components */}
-		</div>
-	</>	
-  );
-
+		{/* </div> */}
+	</div>
+	);
 }

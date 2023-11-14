@@ -8,6 +8,7 @@ import MyNav from './Components/Navbar/MyNav';
 import Join from './Components/Join/Join';
 import OnlineBoard from './Components/OnlineBoard/OnlineBoard';
 import Home from './Components/Home/Home';
+import TempBoard from './Components/TempBoard/TempBoard';
 
 function App() {
   return (
@@ -38,6 +39,10 @@ function App() {
         <Route
           exact path="/online/game/:gameId"
           element={<Header></Header>}
+        />
+        <Route
+          exact path="/temp"
+          element={<TempBoard></TempBoard>}
         />
       </Routes>
     </Router> 

@@ -424,18 +424,18 @@ export default function OnlineBoard({gameId,player,oponent}) {
 
 	return (
 		<>
-		<div className="mycontainer">
+		<div className="onlinecontainer">
 			<h3> Your Piece : {player==='b' ? "Black" : "Red"}</h3>
 			<h3> {activePlayer.get()===player ? "Your Move" : "Opponent Move"}</h3>
-			<div className={'board ' + {player}}>
+			<div className={'onlineboard ' + {player}}>
 				{board.get().map((row, index) => (
 				<Row key={index} rowArr={row} handlePieceClick={socketHandlePieceClick} rowIndex={index} />
 				))}
 			</div>
 			<div className="clear"></div>
-			<button className="board-btn" onClick={resign}>Resign</button>
-			<button className="board-btn" onClick={aboutPopOpen}>Rules</button>
-			<Statistics board={board.get()}/>
+			<button className="onlineboard-btn" onClick={resign}>Resign</button>
+			<button className="onlineboard-btn" onClick={aboutPopOpen}>Rules</button>
+			{(player==='r') ? <Statistics board={board.get()} Player1={"You"} Player2={"Opponent"}/> : <Statistics board={board.get()} Player2={"You"} Player1={"Opponent"}/>}
 			<Popup shown={popShown.get()} close={aboutPopClose} copy="
 				Hey! Thanks for checking out my checkers game. Before playing, keep in mind these Checkers rules.  Players start with 12 pieces each, moving diagonally forward and capturing opponents by jumping over them. When a piece reaches the opponent's last row, it becomes a king with the ability to move and capture in both directions. The goal is to capture all of the opponent's pieces or block them from making a legal move. Kings are crowned upon reaching the last row, and the game ends when one player accomplishes the objective or the opponent cannot make a legal move.
 			"/>

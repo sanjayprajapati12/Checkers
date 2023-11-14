@@ -325,16 +325,16 @@ export default function LocalBoard() {
 
 	return (
 	// <div className='main'>
-		<div className="mycontainer">
-		<div className={'board ' + state.activePlayer}>
+		<div className="localcontainer">
+		<div className={'localboard ' + state.activePlayer}>
 			{state.board.map((row, index) => (
 			<Row key={index} rowArr={row} handlePieceClick={handlePieceClick} rowIndex={index} />
 			))}
 		</div>
 		<div className="clear"></div>
-		<button className="board-btn" onClick={reset}>Reset</button>
-		<button className="board-btn" onClick={aboutPopOpen}>Rules</button>
-		<Statistics board={state.board}/>
+		<button className="localboard-btn" onClick={reset}>Reset</button>
+		<button className="localboard-btn" onClick={aboutPopOpen}>Rules</button>
+		<Statistics board={state.board} Player1={"Player1"} Player2={"Player2"}/>
 		<Popup shown={state.popShown} close={aboutPopClose} copy="
 				Hey! Thanks for checking out my checkers game. Before playing, keep in mind these Checkers rules.  Players start with 12 pieces each, moving diagonally forward and capturing opponents by jumping over them. When a piece reaches the opponent's last row, it becomes a king with the ability to move and capture in both directions. The goal is to capture all of the opponent's pieces or block them from making a legal move. Kings are crowned upon reaching the last row, and the game ends when one player accomplishes the objective or the opponent cannot make a legal move.
 		"/>

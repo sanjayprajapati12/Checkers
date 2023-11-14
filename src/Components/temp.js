@@ -411,3 +411,272 @@
 // 		return output;
 // 	}
 // });
+
+
+// css
+
+// body {
+//     width: 100vw;
+//     height: 100vh;
+//     justify-content: center;
+//     align-items: center;
+//     background-size: cover;
+//     background-repeat: no-repeat;
+//     background-image: url(../../assets/cool-background_2.png);
+// }
+
+// .localcontainer {
+//   width: 460px;
+//   margin: 30px auto 0 auto;
+// }
+
+// .myrow {
+//   height: 50px;
+//   margin-bottom: 5px;
+// }
+
+// .myrow:nth-child(odd) .mycell:nth-child(odd) {
+//   background-color: transparent;
+// }
+// .myrow:nth-child(odd) .mycell:nth-child(even) {
+//   background-color: transparent;
+// }
+// .myrow:nth-child(even) .mycell:nth-child(even) {
+//   background-color: transparent;
+// }
+// .myrow:nth-child(even) .mycell:nth-child(odd) {
+//   background-color: transparent;
+// }
+
+// .mycell {
+//   height:50px;
+//   width:50px;
+//   display:inline-block;
+//   border:1px solid #060000;
+//   margin-right:5px;
+// }
+
+// .mycell .gamePiece {
+//   width:40px;
+//   height:40px;
+//   margin:5px 0 0 5px;
+//   border-radius:40px;
+//   cursor:pointer;
+//   position:relative;
+// }
+
+// .mycell .gamePiece:after {
+//   content: ' ';
+//   position: absolute;
+//   right: 0;
+//   top: -5px;
+//   height: 38px;
+//   width: 38px;
+//   border-radius: 40px;
+//   pointer-events: none;
+// }
+
+// .mycell.mycell-b .gamePiece {
+//   background-color:#3b3b3b;
+//   /* background-color: #444; */
+// }
+
+// .mycell.mycell-b.k .gamePiece:after {
+//   background-color:#3b3b3b;
+//   border:1px solid white;
+// }
+
+// .mycell.mycell-r .gamePiece {
+//   background-color:#e75656;
+// }
+
+// .mycell.mycell-r.k .gamePiece:after {
+//   background-color:#e75656;
+//   border:1px solid white;
+// }
+
+// .mycell.mycell-ab .gamePiece, .mycell.mycell-ar .gamePiece {
+//   background-color: #6a6aff;
+//   box-shadow: 0px 0px 24px #2983f3;
+// }
+
+// .mycell.mycell-ab.k .gamePiece:after, .mycell.mycell-ar.k .gamePiece:after {
+//   background-color: #6a6aff;   
+//   border:1px solid white;   
+// }
+
+// .mycell.mycell-h {
+//   background-color:#6a6aff!important;
+// }
+// .mycell.m .gamePiece {
+//   background-color:green;
+// }
+
+
+// .localboard.r .mycell-b .gamePiece {
+//   opacity:0.6;
+// }
+// .localboard.b .mycell-r .gamePiece {
+//   opacity:0.6;
+// }
+
+// .localboard {
+//   float: left;
+//   transition-duration: 0.8s;
+//   transition-property: transform;
+// }
+
+// .localboard-btn {
+//   display:block;
+//   background-color:rgb(52,67,77);
+//   border:none;
+//   border-radius: 20px;
+//   color:white;
+//   padding:20px;
+//   font-size:20px;
+//   margin-top:10px;
+//   cursor:pointer;
+//   width:109px;
+//   margin-right:5px;
+//   transition: all 0.3s;
+//   float:left;
+// }
+
+// .localboard-btn:hover {
+//   background-color: #4F4036;
+// }
+
+// .localboard.b {
+//    transform: rotate(180deg);
+//     -webkit-transform: rotate(180deg);
+// }
+
+// .clear {
+//   clear: both;
+//   float: none;
+// }
+// .mypop {
+//   position: absolute;
+//   color:#444;
+//   top: 0;
+//   left: 0;
+//   right: 0;
+//   bottom: 0;
+//   background: rgba(255,255,255,0.7);
+// }
+
+// .mypop .internal {
+//   position:relative;
+//   width: 400px;
+//   margin: 0 auto;
+//   background-color: white;
+//   /* background-color:transparent; */
+//   border: 1px solid #ccc;
+//   min-height: 300px;
+//   margin-top: 50px;
+//   padding:50px;
+
+// }
+
+// .mypop .internal .close {
+//   padding: 0 5px;
+//   position: absolute;
+//   right: 0;
+//   width: auto;
+//   top: 0;
+// }
+
+// .mystats {
+//   width: 211px;
+//   /* border: 1px solid #ccc; */
+//   display: inline-block;
+//   margin-top: 10px;
+//   height: 51px;
+//   padding: 5px;
+//   font-family:sans-serif;
+//   /* color:#444; */
+//   color:#3b3b3b;
+//   font-size: 16px;
+// }
+
+// .mystats .half {
+//   width:49%;
+//   display:inline-block;
+//   text-align:center;
+// }
+
+    
+// @media only screen and (max-width:600px) {
+//     .localcontainer{
+//       width:360px;
+//       margin: 50px 50px 50px 50px;
+//     }
+
+//     .myrow {
+//       height: 35px;
+//       margin-bottom: 5px;
+//     }
+
+//     .mycell {
+//       height:35px;
+//       width:35px;
+//     }
+
+//     .mycell .gamePiece {
+//       width:30px;
+//       height:30px;
+//       margin:3px 0 0 3px;
+//       border-radius:30px;
+//       cursor:pointer;
+//       position:relative;
+//     }
+    
+//     .mycell .gamePiece:after {
+//       content: ' ';
+//       position: absolute;
+//       right: 0;
+//       top: -5px;
+//       height: 28px;
+//       width: 28px;
+//       border-radius: 30px;
+//       pointer-events: none;
+//     }
+
+//     .localboard-btn{
+//       display:block;
+//       background-color:rgb(52,67,77); 
+//       border:none;
+//       border-radius: 20px;
+//       color:white;
+//       padding:10px;
+//       font-size:14px;
+//       margin-top:7px;
+//       cursor:pointer;
+//       width:100px;
+//       margin-right:5px;
+//       transition: all 0.3s;
+//       float:left;
+//     }
+    
+//     .localboard-btn:hover{
+//       background-color: #4F4036;
+//     }
+
+//     .mystats {
+//       width: 120px;
+//       display: inline-block;
+//       margin-top: 5px;
+//       height: 100px;
+//       padding: 4px;
+//       font-family:sans-serif;
+//       font-size: 16px;
+//       color:#3b3b3b;
+//     }
+    
+//     .mystats .half {
+//       width:49%;
+//       display:inline-block;
+//       text-align:center;
+//     }
+
+// }
