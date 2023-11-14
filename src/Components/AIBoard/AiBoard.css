@@ -154,10 +154,11 @@ body {
   background-color: #4F4036;
 }
 
+/* 
 .aiboard.b {
   transform: rotate(180deg);
   -webkit-transform: rotate(180deg);
-}
+} */
 
 .clear {
   clear: both;
